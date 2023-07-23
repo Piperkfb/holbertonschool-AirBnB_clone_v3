@@ -64,6 +64,20 @@ class DBStorage:
         if obj is not None:
             self.__session.delete(obj)
 
+    def get(self, cls, id):
+        """Q3 fetches specific object"""
+        all_class = self.all(cls)
+
+        for obj in all_class.values():
+            if id == str(obj.id):
+                return obj
+        
+        return None
+
+    def count(self, cls=None):
+        """Q3 count how many instances of class"""
+        return len(self.all(cls))
+
     def reload(self):
         """reloads data from the database"""
         Base.metadata.create_all(self.__engine)
